@@ -4,13 +4,12 @@
 const SHEET_ID = '1JVIaWGXZ71jeyjGhyTEG5S-jyzsW-UXq1HoxydLtJ-A'
 const RANGES = 'Sheet1'
 // or: Form+Responses+1
-
 // BHA Apartment Listing:1JVIaWGXZ71jeyjGhyTEG5S-jyzsW-UXq1HoxydLtJ-A
 
-
 import axios from 'axios'
-//GSHEET_API_KEY
-//reads from BHA Coronvirus google sheets -> returns data from spreadsheet SHEET_ID for RANGES as specified.
+
+// GSHEET_API_KEY
+// reads from BHA Coronvirus google sheets -> returns data from spreadsheet SHEET_ID for RANGES as specified.
 export default function readSheetValues(zipcode, maxBudget, rooms) {
 
   return axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values:batchGet?ranges=${RANGES}&majorDimension=ROWS&key=${process.env.GSHEET_API_KEY}`)
@@ -26,14 +25,14 @@ export default function readSheetValues(zipcode, maxBudget, rooms) {
           rowObject[batchRowValues[0][j]] = batchRowValues[i][j];
         }
 
-        //ensures that the zip code of the google sheet has the proper 5-digit formatting for consistency. 
+        // ensures that the zip code of the google sheet has the proper 5-digit formatting for consistency. 
         if(rowObject['ZIP CODE (xxxxx)'].length == 4) {
           rowObject['ZIP CODE (xxxxx)'] = '0' + rowObject['ZIP CODE (xxxxx)']
         } else if (rowObject['ZIP CODE (xxxxx)'].length > 5) {
           rowObject['ZIP CODE (xxxxx)'] = rowObject['ZIP CODE (xxxxx)'].substring(0,5)
         }
 
-        if(rowObject['ZIP CODE (xxxxx)'] == zipcode && rowObject['Bedroom Type'] <= rooms && rowObject['Rent'] <= maxBudget) {
+        if(rowObject['ZIP CODE (xxxxx)'] == zipcode && rowObject['Bedroom Type'] >= rooms && rowObject['Rent'] <= maxBudget) {
           rows.push(rowObject)
         }
       }
