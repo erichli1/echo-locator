@@ -1,11 +1,11 @@
-//Gsheet API Key + BHA Listings Spreadsheet ID:
-//tester:1-oSni5SVKOjj_9YR4LPKN7N4UgPdi3eeFA8sM-X0XNw
-//real: 1aTsG_fm5CGYWiM-YJkfXKzJwEVWjo7-HNQ9t1S6_jQY
+// Gsheet API Key + BHA Listings Spreadsheet ID:
+// tester:1-oSni5SVKOjj_9YR4LPKN7N4UgPdi3eeFA8sM-X0XNw
+// real: 1aTsG_fm5CGYWiM-YJkfXKzJwEVWjo7-HNQ9t1S6_jQY
 const SHEET_ID = '1JVIaWGXZ71jeyjGhyTEG5S-jyzsW-UXq1HoxydLtJ-A'
 const RANGES = 'Sheet1'
-//or: Form+Responses+1
+// or: Form+Responses+1
 
-//BHA Apartment Listing:1JVIaWGXZ71jeyjGhyTEG5S-jyzsW-UXq1HoxydLtJ-A
+// BHA Apartment Listing:1JVIaWGXZ71jeyjGhyTEG5S-jyzsW-UXq1HoxydLtJ-A
 
 
 import axios from 'axios'
@@ -13,7 +13,7 @@ import axios from 'axios'
 //reads from BHA Coronvirus google sheets -> returns data from spreadsheet SHEET_ID for RANGES as specified.
 export default function readSheetValues(zipcode, maxBudget, rooms) {
 
-  return axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key=${process.env.GSHEET_API_KEY}`)
+  return axios.get(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values:batchGet?ranges=${RANGES}&majorDimension=ROWS&key=${process.env.GSHEET_API_KEY}`)
     .then(response => {
       var rows = []
 
